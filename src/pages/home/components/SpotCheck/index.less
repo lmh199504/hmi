@@ -3,10 +3,80 @@
   width: 100%;
   padding: 20px 40px;
   gap: 20px;
-  .check_title {
+  .title {
     color: @text-color;
     font-size: 32px;
     padding-top: 85px;
     text-align: center;
+    margin-bottom: 50px;
+  }
+  .card {
+    background-image: url(~@/assets/imgs/checkCard.png);
+    background-size: cover;
+    min-height: 642px;
+    background-color:#EDF3FF;
+    box-shadow: 0px 10px 24px 0px rgba(30, 117, 249, 0.1);
+    padding: 56px 36px;
+    height: 100%;
+    .swith_item {
+      display: flex;
+      margin-bottom: 40px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .left_switch {
+        padding-top: 15px;
+        margin-right: 16px;
+        :global {
+          .ant-switch-handle {
+            height: 32px;
+            width: 32px;
+          }
+          .anticon {
+            font-size: 20px;
+          }
+          .ant-switch {
+            background-color: #E34D59;
+            line-height: 42px;
+          }
+          .ant-switch-checked {
+            background-color: #00A870;
+          }
+          .ant-switch-inner{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          } 
+          .ant-switch-checked .ant-switch-handle {
+            left: calc(100% - 32px - 5px);
+          }
+        }
+      }
+      .check_title {
+        color: @text-color;
+        font-size: 24px;
+      }
+      .check_content {
+        font-size: 20px;
+        color: @text-color-secondary;
+        max-width: 406px;
+        min-height: 55px;
+      }
+    }
+  }
+  .check_btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    :global {
+      .ant-btn {
+        height: 53px;
+        width: 188px;
+        line-height: 53px;
+        border-radius: 26px;
+        padding: 0;
+        font-size: 24px;
+      }
+    }
   }
 }

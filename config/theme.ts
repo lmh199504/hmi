@@ -37,8 +37,9 @@ export default {
   "@menu-item-padding-horizontal": "12px",
   // 主红色
   "@red-5": "#E34D59",
-  // // btn 高度
-  // "@btn-height-base": "42px",
-  // // btn 水平边距
-  // "@btn-padding-horizontal-base": "28px"
+  // switch 背景色
+  "@switch-color": "#00A870",
+  "@switch-height": "42px",
+  "@switch-min-width": "72px",
+  "@switch-padding": "5px"
 };
