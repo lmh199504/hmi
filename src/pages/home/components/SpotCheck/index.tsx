@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import styles from "./index.less";
 import { Row, Col, Switch, Button } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { setCheck } from "@/utils/check"
 
 interface Props {
   className?: string;
@@ -19,6 +20,7 @@ const SpotCheck: React.FC<Props> = (props) => {
 
   const handleFinish = () => {
     props.onFinish()
+    setCheck()
   };
   return (
     <div className={className}>

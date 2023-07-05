@@ -1,11 +1,18 @@
-
-const CHECKEY = "check_key"
+const CHECKEY = "check_key";
 
 // 点检
-export const getCheckTime = (): string => {
+export const getCheckTime = (): string | number => {
   const data = localStorage.getItem(CHECKEY);
   if (data) {
-    return data
+    return parseInt(data);
   }
-  return ''
-}
+  return "";
+};
+
+export const setCheck = () => {
+  localStorage.setItem(CHECKEY, new Date().getTime() + "");
+};
+
+export const removeCheck = () => {
+  localStorage.removeItem(CHECKEY);
+};

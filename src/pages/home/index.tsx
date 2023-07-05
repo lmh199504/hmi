@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailMap from "./components/DetailMap";
 import SpotCheck from "./components/SpotCheck";
 import styles from "./index.less";
+import { getCheckTime } from "@/utils/check";
 
 enum SHOWTYPE {
   CHECK = "CHECK",
@@ -15,6 +16,14 @@ const Home: React.FC = () => {
   const onFinish = () => {
     setType(SHOWTYPE.MAP);
   };
+
+  useEffect(() => {
+    const time = getCheckTime();
+    if (new Date(time).getDate() != new Date().getDate()) {
+      setType(SHOWTYPE.CHECK)
+    }
+  }, []);
+
   return (
     <>
       <SpotCheck
