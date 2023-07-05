@@ -1,0 +1,16 @@
+export default {
+  "page.machineService.车辆代码": "车辆代码",
+  "page.machineService.授权堆场": "授权堆场",
+  "page.machineService.工作状态": "工作状态",
+  "page.machineService.授权司机": "授权司机",
+  "page.machineService.机械状态": "机械状态",
+  "page.machineService.授权区域": "授权区域",
+  "page.machineService.维修申请": "Repair Request",
+  "page.machineService.大机司机": "大机司机",
+  "page.machineService.故障描述": "故障描述",
+  "page.machineService.预计维修时间": "预计维修时间",
+  "page.machineService.是否加急": "是否加急",
+  "page.machineService.同意": "Agree",
+  "page.machineService.驳回": "Reject",
+  "page.machineService.设备日志": "设备日志",
+};

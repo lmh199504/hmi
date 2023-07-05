@@ -1,0 +1,74 @@
+
+.apply {
+  padding: 40px;
+  height: 100%;
+  .apply_title {
+    color: @text-color;
+    font-size: 32px;
+    padding-top: 80px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .card {
+    padding: 32px;
+    min-height: 643px;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .icon {
+      font-size: 72px;
+    }
+    .title {
+      color: @text-color;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+    .card_remark {
+      font-size: 24px;
+      color: @text-color-secondary;
+      max-width: 385px;
+    }
+    .apply_btn {
+      position: absolute;
+      bottom: 60px;
+      :global{
+        .ant-btn {
+          background: #3D3F4C;
+          color: #fff;
+          height: 52px;
+          line-height: 1;
+          padding: 12px 46px;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+  .refuel_card {
+    background-color: radial-gradient(89% 68% at 50% 50%, #DFECFF 0%, #A9CBFF 100%);
+    box-shadow: 0px 10px 24px 0px rgba(30, 117, 249, 0.1);
+    background-image: url("~@/assets/imgs/RefuelCard.png");
+
+  }
+  .repair_card {
+    background-color: radial-gradient(92% 69% at 50% 50%, #F2F8FF 0%, #BCE4FF 100%);
+    box-shadow: 0px 10px 24px 0px rgba(0, 171, 255, 0.1);
+    background-image: url("~@/assets/imgs/RepairCard.png");
+
+  }
+  .maintenance_card {
+    background-color: radial-gradient(93% 69% at 49% 50%, #FFF4E1 0%, #FFE1AC 100%);
+    box-shadow: 0px 10px 24px 0px rgba(241, 144, 23, 0.1);
+    background-image: url("~@/assets/imgs/MaintenanceCard.png");
+    
+  }
+  .repair_option_item {
+    height: 60px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 4px;
+    text-align: center;
+    line-height: 60px;
+    color: @text-color-secondary;
+    font-size: 24px;
+  }
+}

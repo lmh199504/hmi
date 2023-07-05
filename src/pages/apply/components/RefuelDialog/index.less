@@ -1,0 +1,50 @@
+.fefuelDialog {
+  .content {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .main_content {
+      width: 455px;
+      height: 334px;
+      background-image: url(~@/assets/imgs/RefuelDialog.png);
+      background-size: cover;
+      padding: 24px;
+      .refuelImg_wrapper {
+        text-align: center;
+      }
+      .refuelImg {
+        width: 94px;
+        height: 94px;
+      }
+      .title {
+        margin-top: 8px;
+        font-size: 32px;
+        color: @text-color;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .text {
+        color: @text-color-secondary;
+        font-size: 24px;
+      }
+    }
+  }
+  .cancel {
+    width: fit-content;
+    display: flex;
+    gap: 10px;
+    font-size: 24px;
+    color: rgba(26, 32, 44, 0.4);
+  }
+  :global {
+    .ant-modal-content {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    .ant-modal-close-x {
+      width: fit-content;
+    }
+  }
+}

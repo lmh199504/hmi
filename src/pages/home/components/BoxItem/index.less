@@ -1,0 +1,74 @@
+.box_item {
+  padding: 12px 28px;
+  cursor: pointer;
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .name_status {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      .car_no {
+        font-size: 28px;
+      }
+      .status_icon {
+        display: flex;
+        align-items: center;
+        color: #D22B36;
+        .icon {
+          font-size: 24px;
+          margin-right: 2px;
+        }
+        .text {
+          font-size: 20px;
+        }
+      }
+      .overTime {
+        .icon {
+          font-size: 24px;
+          color: #F19017;      
+        }
+        .text {
+          font-size: 20px;
+          color: #F19017;      
+        }
+      }
+    }
+    .box_no {
+      color: @text-color;
+      font-size: 24px;
+
+    }
+  }
+  .info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    .info_left {
+      display: flex;
+      gap: 24px;
+      .info_item {
+        font-size: 24px;
+        color: @text-color-secondary;
+      }
+    }
+    :global {
+      .ant-btn {
+        width: 100px;
+        height: 42px;
+        line-height: 1;
+        font-size: 22px;
+      }
+    }
+  }
+  .remark {
+    margin-top: 10px;
+    font-size: 20px;
+    color: @input-placeholder-color;
+  }
+}
+.select {
+  background: #D7E9FA;
+}

@@ -1,0 +1,15 @@
+export default {
+  "page.product.产品列表": "ProductList",
+  "page.product.业务产品": "product",
+  "page.product.产品编码": "code",
+  "page.product.绑定界面": "bindPage",
+  "page.product.租户": "tenantNames",
+  "page.product.贸易类型": "tradeType",
+  "page.product.产品类型": "productType",
+  "page.product.产品说明": "description",
+  "page.product.箱管服务": "ctnManger",
+  "page.product.箱修服务": "ctnRepair",
+  "page.product.运输服务": "trans",
+  "page.product.机修服务": "machineRepair",
+  "page.product.产品配置": "productConfig",
+};

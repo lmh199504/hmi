@@ -1,0 +1,15 @@
+export default {
+  "page.product.产品列表": "产品列表",
+  "page.product.业务产品": "业务产品",
+  "page.product.产品编码": "产品编码",
+  "page.product.绑定界面": "绑定界面",
+  "page.product.租户": "租户",
+  "page.product.贸易类型": "贸易类型",
+  "page.product.产品类型": "产品类型",
+  "page.product.产品说明": "产品说明",
+  "page.product.箱管服务": "箱管服务",
+  "page.product.箱修服务": "箱修服务",
+  "page.product.运输服务": "运输服务",
+  "page.product.机修服务": "机修服务",
+  "page.product.产品配置": "产品配置",
+};

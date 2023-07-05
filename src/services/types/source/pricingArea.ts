@@ -1,0 +1,90 @@
+export interface PageParams {
+  current?: number;
+  /**
+   * 是否启用:0:未启用；1:启用
+   */
+  enable?: number;
+  order?: any[];
+  size?: number;
+}
+
+export interface PagePriceAreaDTO {
+  countId?: string;
+  current?: number;
+  maxLimit?: number;
+  optimizeCountSql?: boolean;
+  optimizeJoinOfCountSql?: boolean;
+  orders?: OrderItem[];
+  pages?: number;
+  records?: PriceAreaDTO[];
+  searchCount?: boolean;
+  size?: number;
+  total?: number;
+}
+
+/**
+ * OrderItem
+ */
+export interface OrderItem {
+  asc?: boolean;
+  column?: string;
+}
+
+/**
+ * PriceAreaDTO，基础数据管理 —价格区域 DTO
+ * 接口数据返回值
+ */
+export interface PriceAreaDTO {
+  country: string;
+  code?: string;
+  createBy?: string;
+  createId?: number;
+  createTime?: Date;
+  delFlag?: number;
+  /**
+   * 是否启用:0:未启用；1:启用
+   */
+  enable?: number;
+  id: string;
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * 英文名
+   */
+  nameEn?: string;
+  remark?: string;
+  remarkEn?: string;
+  tenantId?: number;
+  transMap?: { [key: string]: string };
+  updateBy?: string;
+  updateId?: number;
+  updateTime?: Date;
+  version: number;
+  countryCode: string;
+}
+
+export interface DeleteParams {
+  id: string;
+  version: number;
+}
+
+export interface CreateParams {
+  code: string;
+  name?: string;
+  nameEn?: string;
+}
+
+export interface EditParams {
+  id: string;
+  version: number;
+  code: string;
+  name?: string;
+  nameEn?: string;
+}
+
+export interface StatusParams {
+  id: string;
+  version: number;
+}
