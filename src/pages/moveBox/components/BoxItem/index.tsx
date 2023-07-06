@@ -52,7 +52,7 @@ const BoxItem: React.FC<Props> = (props) => {
                     <Input readOnly />
                   </Form.Item>
                 </div>
-                <div>
+                <div className={styles.car_input}>
                   <Form.Item label="车辆">
                     <Input readOnly />
                   </Form.Item>
@@ -64,7 +64,11 @@ const BoxItem: React.FC<Props> = (props) => {
                 </div>
               </div>
             </Form>
-            <Button type="primary">确认</Button>
+            <Form layout="vertical">
+              <Form.Item label={<span className={styles.label_span}>确认</span>}>
+                <Button type="primary">确认</Button>
+              </Form.Item>
+            </Form>
           </div>
           <div className={styles.remark}>备注：这里显示备注文本。</div>
         </div>

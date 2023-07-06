@@ -46,14 +46,18 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+    gap: 20px;
     .form {
       display: flex;
       gap: 16px;
-      :global {
-        .ant-form-item-label {
-          font-size: 24px;
-        }
+      
+      .car_input {
+        width: 130px;
       }
+    }
+    .label_span {
+      opacity: 0;
+      font-size: 24px;
     }
     :global {
       .ant-btn {
@@ -61,6 +65,15 @@
         height: 42px;
         line-height: 1;
         font-size: 22px;
+      }
+      .ant-form-item-label > label {
+        font-size: 24px;
+      }
+      .ant-input {
+        height: 49px;
+        font-size: 24px;
+        background: rgba(255, 255, 255, 0.45);
+        border: none;
       }
     }
   }
