@@ -8,6 +8,7 @@ import { LeftOutlined } from "@ant-design/icons";
 
 interface Props {
   className?: string;
+  onBack: () => void;
 }
 
 const DetailMap: React.FC<Props> = (props) => {
@@ -18,6 +19,11 @@ const DetailMap: React.FC<Props> = (props) => {
     }
     return arr.join(" ");
   }, [props.className]);
+
+  const handleBack = () => {
+    props.onBack()
+  }
+
   return (
     <div className={className}>
       <div className={styles.left}>
@@ -43,7 +49,7 @@ const DetailMap: React.FC<Props> = (props) => {
       </div>
       <div className={styles.right}>
         <div className={styles.nav}>
-          <div className={styles.back}>
+          <div className={styles.back} onClick={handleBack}>
             <LeftOutlined />
             <div className={styles.text}>返回</div>
           </div>

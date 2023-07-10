@@ -29,3 +29,25 @@ body {
     Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+.ant-message {
+  font-size: 24px;
+}
+.ant-message-warning .anticon{
+  font-size: 24px;
+}
+.ant-modal
+.ant-modal-confirm-body .ant-modal-confirm-title {
+  font-size: 28px;
+}
+
+.ant-modal-confirm-body .ant-modal-confirm-content {
+  font-size: 24px;
+  margin-top: 24px;
+}
+.ant-modal {
+  min-width: 600px;
+}
+.ant-modal-confirm-btns .ant-btn {
+  height: 48px;
+  font-size: 24px;
+}

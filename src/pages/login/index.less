@@ -1,0 +1,68 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  background: #010626;
+  .login_content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 488px;
+    :global {
+      .ant-form-item-control-input {
+        height: 68px;
+      }
+      .ant-form-item-control-input-content {
+        height: 100%;
+      }
+      .ant-input-affix-wrapper {
+        height: 100%;
+        background: rgba(73, 221, 254, 0.1);
+        border: none;
+        outline: none;
+        padding: 0 15px;
+      }
+      .ant-form-item {
+        margin-bottom: 26px;
+      }
+      .ant-input {
+        background: transparent;
+        color: rgba(255, 255, 255, 1);
+        font-size: 24px;
+        &::placeholder{
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 24px;
+        }
+      }
+    }
+    .title {
+      font-family: PingFangSCRegular-Regular;
+      font-size: 40px;
+      color: #FFFFFF;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .login_btn_wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 36px;
+      .login_btn {
+        background: linear-gradient(180deg, #49DEFF 0%, #4870FF 100%);
+        box-shadow: -7px 3px 33px 0px #4870FF;
+        width: 160px;
+        height: 68px;
+        border-radius: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 24px;
+        color: #fff;
+        &:active {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

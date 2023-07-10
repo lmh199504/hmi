@@ -1,11 +1,37 @@
 import React from "react";
 import styles from "./index.less";
 import SvgIcon from "../SvgIcon";
-import { NavLink } from "umi";
+import { history, NavLink } from "umi";
+import { Modal } from "antd";
 const TabBar: React.FC = () => {
   const handleRefresh = () => {
     window.location.reload();
   };
+
+  const handleLogout = () => {
+    if (Math.random() > 0.5) {
+      // 有任务未执行完
+      Modal.confirm({
+        title: "提示",
+        content: "您当前有任务未执行完，不可退出。",
+        centered: true,
+        onOk: () => {
+          history.push("/login")
+        },
+      });
+    } else {
+      // 无任务未执行完
+      Modal.confirm({
+        title: "提示",
+        content: "是否确认退出当前任务?",
+        centered: true,
+        onOk: () => {
+          history.push("/login")
+        }
+      });
+    }
+  };
+
   return (
     <>
       <div className={styles.tabbar}>
@@ -14,9 +40,7 @@ const TabBar: React.FC = () => {
             <div className={styles.icon}>
               <SvgIcon name="refresh" />
             </div>
-            <div className={styles.text}>
-              刷新
-            </div>
+            <div className={styles.text}>刷新</div>
           </div>
         </div>
         <div className={styles.center}>
@@ -50,7 +74,7 @@ const TabBar: React.FC = () => {
             </div>
             <div className={styles.text}>切换</div>
           </div>
-          <div className={styles.btn}>
+          <div className={styles.btn} onClick={handleLogout}>
             <div className={styles.icon}>
               <SvgIcon name="exit" />
             </div>

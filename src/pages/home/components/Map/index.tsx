@@ -6,14 +6,12 @@ import MapItem from "../MapItem";
 const Map: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const handleLeft = () => {
-    // console.log()
     if (contentRef.current) {
       contentRef.current.scrollLeft = contentRef.current?.scrollLeft - 137;
     }
   };
 
   const handleRight = () => {
-    console.log();
     if (contentRef.current) {
       contentRef.current.scrollLeft = contentRef.current?.scrollLeft + 137;
     }
