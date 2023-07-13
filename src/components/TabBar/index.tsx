@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./index.less";
 import SvgIcon from "../SvgIcon";
-import { history, NavLink } from "umi";
+import { history, NavLink, useDispatch, useLocation } from "umi";
 import { Modal } from "antd";
+import { ActionType } from "@/models/system";
 const TabBar: React.FC = () => {
+  const dispatch = useDispatch();
+  const location = useLocation()
   const handleRefresh = () => {
     window.location.reload();
   };
@@ -16,7 +19,7 @@ const TabBar: React.FC = () => {
         content: "您当前有任务未执行完，不可退出。",
         centered: true,
         onOk: () => {
-          history.push("/login")
+          history.push("/login");
         },
       });
     } else {
@@ -26,12 +29,26 @@ const TabBar: React.FC = () => {
         content: "是否确认退出当前任务?",
         centered: true,
         onOk: () => {
-          history.push("/login")
-        }
+          history.push("/login");
+        },
       });
     }
   };
-
+  // 切换
+  const handleExchange = () => {
+    if (location.pathname == "/home") {
+      dispatch({
+        type: "system/setLayout",
+        payload: { type: ActionType.home},
+      });
+    } else if (location.pathname == "/moveBox") {
+      dispatch({
+        type: "system/setLayout",
+        payload: { type: ActionType.move},
+      });
+    }
+    
+  };
   return (
     <>
       <div className={styles.tabbar}>
@@ -68,7 +85,7 @@ const TabBar: React.FC = () => {
               <div className={styles.text}>申请</div>
             </div>
           </NavLink>
-          <div className={styles.btn}>
+          <div className={styles.btn} onClick={handleExchange}>
             <div className={styles.icon}>
               <SvgIcon name="exchange" />
             </div>

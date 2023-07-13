@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo,useState } from "react";
 import styles from "./index.less";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import BoxList from "../BoxList";
 import Map from "../Map";
 import { LeftOutlined } from "@ant-design/icons";
+import { Layout, useStore } from "umi";
 
 interface Props {
   className?: string;
@@ -12,17 +13,26 @@ interface Props {
 }
 
 const DetailMap: React.FC<Props> = (props) => {
+  const store = useStore();
+  const [layout, setLayout]= useState(store.getState().system.homeLayout)
+  store.subscribe(() => {
+    setLayout(store.getState().system.homeLayout)
+  });
+
   const className = useMemo(() => {
     const arr = [styles.home];
     if (props.className) {
       arr.push(props.className);
     }
+    if (layout == Layout.reverse) {
+      arr.push(styles.reverse_layout);
+    }
     return arr.join(" ");
-  }, [props.className]);
+  }, [props.className, layout]);
 
   const handleBack = () => {
-    props.onBack()
-  }
+    props.onBack();
+  };
 
   return (
     <div className={className}>

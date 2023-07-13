@@ -10,12 +10,22 @@ const MaintenanceCard: React.FC = () => {
         <div className={styles.icon}>
           <SvgIcon name="maintenance" />
         </div>
-        <div className={styles.title}>保养计划</div>
-        <div className={styles.card_remark}>
-          预计2023-01-01进行保养，请注意接收保养通知！
+        {/* 保养计划 */}
+        <div style={{ display: "none" }}>
+          <div className={styles.title}>保养计划</div>
+          <div className={styles.card_remark}>
+            预计2023-01-01进行保养，请注意接收保养通知！
+          </div>
         </div>
-        <div className={styles.apply_btn}>
-          <Button>确认验收</Button>
+        {/* 保养中... */}
+        <div>
+          <div className={styles.title}>保养中...</div>
+          <div className={styles.card_remark}>
+            请在完成保养后，查验保养结果，完成验收后车辆自动恢复为作业中。
+          </div>
+          <div className={styles.apply_btn}>
+            <Button>确认验收</Button>
+          </div>
         </div>
       </div>
     </Col>

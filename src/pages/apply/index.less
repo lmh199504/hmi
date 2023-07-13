@@ -15,6 +15,7 @@
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
+    height: 100%;
     .icon {
       font-size: 72px;
     }
@@ -53,7 +54,63 @@
     background-color: radial-gradient(92% 69% at 50% 50%, #F2F8FF 0%, #BCE4FF 100%);
     box-shadow: 0px 10px 24px 0px rgba(0, 171, 255, 0.1);
     background-image: url("~@/assets/imgs/RepairCard.png");
-
+    .repair_tip {
+      font-size: 24px;
+      color: @text-color-secondary;
+      .tip_time {
+        font-size: 32px;
+        color: @text-color;
+      }
+    }
+    .time_line {
+      margin-top: 28px;
+      .repair_status_title {
+        font-size: 24px;
+        display: flex;
+        .repair_title {
+          color: @text-color;
+          min-width: 125px;
+        }
+        .repair_status {
+          color: #00A870;
+          margin-left: 25px;
+        }
+      }
+      .repair_time {
+        font-size: 22px;
+        color: rgba(26, 32, 44, 0.4);
+      }
+      
+    }
+    .active_time {
+      :global {
+        .ant-timeline-item-tail {
+          border-left-color: #1E75F9;
+        }
+        .ant-timeline-item-head-blue {
+          background-color: #1E75F9;
+          border-color: #1E75F9;
+        }
+      }
+    }
+    :global {
+      .ant-timeline-item-head {
+        width: 12px;
+        height: 12px;
+      }
+      .ant-timeline-item-tail {
+        border-left-color: #C5C5C5;
+        left: 6px;
+      }
+      .ant-timeline-item-head-blue {
+        background-color: #C5C5C5;
+        border-color: #C5C5C5;
+      }
+    }
+    .repair_ing {
+      color: @text-color-secondary;
+      font-size: 24px;
+    }
   }
   .maintenance_card {
     background-color: radial-gradient(93% 69% at 49% 50%, #FFF4E1 0%, #FFE1AC 100%);

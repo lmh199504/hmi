@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./index.less";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import BoxList from "./components/BoxList";
 import Map from "./components/Map";
 import CarList from "./components/CarList";
+import { Layout, SystemState, useStore } from "umi";
 
 const Home: React.FC = () => {
+  const store = useStore<{system: SystemState}>();
+  const [layout, setLayout] = useState(store.getState().system.moveLayout);
+  store.subscribe(() => {
+    setLayout(store.getState().system.moveLayout);
+  });
   const [nav, setNav] = useState(0);
 
   const handleNav = (num: number) => {
@@ -35,7 +41,7 @@ const Home: React.FC = () => {
               // console.log("目标元素已经滚动到了页面中");
               // console.log(entry);
               // console.log(index)
-              setNav(index)
+              setNav(index);
             }
           });
         });
@@ -44,8 +50,15 @@ const Home: React.FC = () => {
     });
   }, []);
 
+  const className = useMemo(() => {
+    const arr = [styles.moveBox];
+    if (layout == Layout.reverse) {
+      arr.push(styles.reverse_layout);
+    }
+    return arr.join(" ");
+  }, [layout]);
   return (
-    <div className={styles.moveBox}>
+    <div className={className}>
       <div className={styles.left}>
         <div className={styles.input}>
           <Input placeholder="请输入箱号数字查询" prefix={<SearchOutlined />} />
