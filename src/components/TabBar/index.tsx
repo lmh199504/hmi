@@ -4,11 +4,18 @@ import SvgIcon from "../SvgIcon";
 import { history, NavLink, useDispatch, useLocation } from "umi";
 import { Modal } from "antd";
 import { ActionType } from "@/models/system";
+import { reqLogout } from "@/services/api/user";
+import { removeToken } from "@/utils/auth";
+import { removeCar } from "@/utils/setCar";
+import mitt from "@/mitt";
+import EVENTKEY from "@/constant/mittEvent";
+
 const TabBar: React.FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation()
+  const location = useLocation();
   const handleRefresh = () => {
-    window.location.reload();
+    // window.location.reload();
+    mitt.emit(EVENTKEY.REFRESH)
   };
 
   const handleLogout = () => {
@@ -18,7 +25,10 @@ const TabBar: React.FC = () => {
         title: "提示",
         content: "您当前有任务未执行完，不可退出。",
         centered: true,
-        onOk: () => {
+        onOk: async () => {
+          await reqLogout();
+          removeToken();
+          removeCar();
           history.push("/login");
         },
       });
@@ -39,15 +49,14 @@ const TabBar: React.FC = () => {
     if (location.pathname == "/home") {
       dispatch({
         type: "system/setLayout",
-        payload: { type: ActionType.home},
+        payload: { type: ActionType.home },
       });
     } else if (location.pathname == "/moveBox") {
       dispatch({
         type: "system/setLayout",
-        payload: { type: ActionType.move},
+        payload: { type: ActionType.move },
       });
     }
-    
   };
   return (
     <>

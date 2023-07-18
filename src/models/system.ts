@@ -14,7 +14,7 @@ export interface SystemModel {
   namespace: string;
   state: SystemState;
   reducers: {
-    setLayout: Reducer<SystemModel>;
+    setLayout: Reducer<SystemState>;
   };
 }
 

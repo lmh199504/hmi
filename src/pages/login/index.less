@@ -33,6 +33,57 @@
           color: rgba(255, 255, 255, 0.6);
           font-size: 24px;
         }
+        &:-webkit-autofill {
+          transition:background-color 5000s ease-in-out 0s;
+          -webkit-text-fill-color: rgba(255, 255, 255, 1);
+        }
+      }
+      .ant-select {
+        background: transparent;
+        color: rgba(255, 255, 255, 1);
+        font-size: 24px;
+        height: 100%;
+        
+      }
+      .ant-select-selector {
+        height: 100%;
+        background: rgba(73, 221, 254, 0.1);
+        border: none;
+        outline: none;
+        padding-left: 15px;
+        .ant-select-selection-search {
+          height: 100%;
+        }
+        .ant-select-selection-item {
+          line-height: 68px;
+        }
+        .ant-select-selection-search-input {
+          height: 100%;
+          line-height: 68px;
+          padding-left: 7px;
+          &::placeholder{
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 24px;
+          }
+        }
+        .ant-select-selection-placeholder {
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 24px;
+          line-height: 68px;
+        }
+      }
+      .ant-select-arrow {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .ant-select-clear {
+        background: #081c3c;
+        color: rgba(255, 255, 255, 0.6);
+        width: 30px;
+        height: 30px;
+        margin-top: -15px;
+        font-size: 24px;
+        line-height: 30px;
       }
     }
     .title {
@@ -59,10 +110,33 @@
         gap: 8px;
         font-size: 24px;
         color: #fff;
+        cursor: pointer;
+        user-select: none;
         &:active {
           opacity: 0.8;
         }
       }
     }
   }
+  :global {
+    .ant-select-dropdown {
+      background-color: #081c3c;
+      .ant-select-item {
+        color: #fff;
+        font-size: 24px;
+        line-height: 1.5715;
+      }
+      .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+        color: #1A202C;
+      }
+      .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+        color: #1A202C;
+      }
+    }
+    .ant-empty-description {
+      font-size: 24px;
+      color: #fff;
+    }
+  }
 }
+

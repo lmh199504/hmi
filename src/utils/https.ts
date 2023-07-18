@@ -29,17 +29,12 @@ class Https {
       Https.manager.httpClient.interceptors.response.use(
         function (response) {
           const code = response.data.code;
-          const errorMsg =
-            response.data.error &&
-            response.data.error?.indexOf("java.sql.SQLSyntaxErrorException") >
-              -1
-              ? response.data.message
-              : response.data.error;
+          const errorMsg = response.data.error || response.data.msg;
           // 文件
           if (typeof response.data == "string") {
             return response;
           }
-          if (code == 0) {
+          if (code == 0 || response.data.success) {
             return response;
           } else if (code == "401" || code == "500") {
             removeToken();
