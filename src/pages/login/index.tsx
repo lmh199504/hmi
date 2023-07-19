@@ -5,15 +5,18 @@ import { ArrowRightOutlined, LoadingOutlined } from "@ant-design/icons";
 import { userLogin } from "@/services/api/user";
 import { reqAsset } from "@/services/api/hmi";
 import { AssetMasterDTO } from "@/services/types/hmi";
-import { setToken } from "@/utils/auth"
-import { history } from "umi"
+import { setToken } from "@/utils/auth";
+import { history } from "umi";
 import { setCar } from "@/utils/setCar";
+import { reqSaveLogin } from "@/services/api/hmi";
 
 const Login: React.FC = () => {
   const [carList, setCarList] = useState<AssetMasterDTO[]>([]);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [carLoading, setCarLoading] = useState(false);
   const fetchCar = (val?: string) => {
+    setCarLoading(true);
     reqAsset({
       current: 1,
       pageSize: 10,
@@ -21,9 +24,14 @@ const Login: React.FC = () => {
         assetName: val,
         enable: 1,
       },
-    }).then((res) => {
-      setCarList(res?.data?.collection || []);
-    });
+    })
+      .then((res) => {
+        setCarList(res?.data?.collection || []);
+        setCarLoading(false);
+      })
+      .catch(() => {
+        setCarLoading(false);
+      });
   };
   const handleSearch = (val: string) => {
     fetchCar(val);
@@ -50,7 +58,7 @@ const Login: React.FC = () => {
         return;
       }
       if (loading) {
-        return
+        return;
       }
       setLoading(true);
       const res = await userLogin({
@@ -58,7 +66,8 @@ const Login: React.FC = () => {
       });
       setToken(res?.data.token || "");
       setCar(data.loginLocation);
-      history.push("/")
+      await reqSaveLogin({ deviceCode: data.loginLocation });
+      history.push("/");
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -81,6 +90,7 @@ const Login: React.FC = () => {
                 value: "assetName",
               }}
               allowClear
+              loading={carLoading}
               getPopupContainer={(triggerNode) => triggerNode.parentNode}
             />
           </Form.Item>

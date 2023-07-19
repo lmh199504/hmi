@@ -1,9 +1,57 @@
-import React from "react";
-import { Col, Button, Row, Timeline } from "antd";
+import React, { useEffect, useState } from "react";
+import { Col, Button, Row, Timeline, message } from "antd";
 import styles from "../../index.less";
 import SvgIcon from "@/components/SvgIcon";
+import { reqApplyRepair, reqFaultDesc } from "@/services/api/check";
+import { getCar } from "@/utils/setCar";
+import type { VehicleTroubleModel } from "@/services/types/check";
 
 const RepairCard: React.FC = () => {
+  const [descList, setDescList] = useState<VehicleTroubleModel[]>([]);
+  const [selectList, setSelectList] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const fetchList = () => {
+    reqFaultDesc({
+      assetName: getCar(),
+    }).then((res) => {
+      setDescList(res?.data || []);
+    });
+  };
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  const handleSelectRepair = (val: string) => {
+    const index = selectList.findIndex((item) => item == val);
+    if (index != -1) {
+      const list = selectList.filter((item) => item != val);
+      setSelectList(list);
+    } else {
+      const list = [...selectList, val];
+      setSelectList(list);
+    }
+  };
+  // 提交维修申请
+  const handleRepair = () => {
+    if (selectList.length == 0) {
+      message.warn("请先选择故障类型");
+      return;
+    }
+    reqApplyRepair({
+      assetName: "",
+      assetType: "",
+      assetTypeId: "",
+      dddeptId: "",
+      dduserId: "",
+      faultDescription: selectList.join("|"),
+    })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
   return (
     <Col span={10}>
       <div className={`${styles.repair_card} ${styles.card}`}>
@@ -11,50 +59,30 @@ const RepairCard: React.FC = () => {
           <SvgIcon name="repair" />
         </div>
         {/* 初始状态 */}
-        <div style={{ display: "none" }}>
+        <div>
           <div className={styles.title}>维修申请</div>
           <div className={styles.repair_option}>
             <Row gutter={[16, 16]}>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
-              <Col span={6}>
-                <div className={styles.repair_option_item}>皮带异响</div>
-              </Col>
+              {descList.map((item) => (
+                <Col key={item.faultDescription} span={6}>
+                  <div
+                    className={`${styles.repair_option_item} ${
+                      selectList.includes(item.faultDescription)
+                        ? styles.repair_option_item_active
+                        : ""
+                    }`}
+                    onClick={() => handleSelectRepair(item.faultDescription)}
+                  >
+                    {item.faultDescription}
+                  </div>
+                </Col>
+              ))}
             </Row>
           </div>
           <div className={styles.apply_btn}>
-            <Button>维修申请</Button>
+            <Button onClick={handleRepair} loading={loading}>
+              维修申请
+            </Button>
           </div>
         </div>
         {/* 申请中 */}
@@ -99,7 +127,7 @@ const RepairCard: React.FC = () => {
           </div>
         </div>
         {/* 维修中 */}
-        <div>
+        <div style={{ display: "none" }}>
           <div className={styles.title}>维修中...</div>
           <div className={styles.repair_ing}>
             请在完成修理后，查验维修结果，完成验收后车辆自动恢复为作业中。

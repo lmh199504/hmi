@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import type { IRouteComponentProps } from "umi";
 import styles from "./index.less";
-import { KeepAliveLayout } from "umi";
+import { KeepAliveLayout, useLocation, history } from "umi";
 import TabBar from "@/components/TabBar";
 import { useDispatch } from "umi";
 
 const Layout: React.FC<IRouteComponentProps> = (props) => {
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const location = useLocation();
   useEffect(() => {
-    dispatch({type: "user/getInfo"})
-  }, [])
+    if (location.pathname == "/") {
+      history.push("/home");
+    }
+    dispatch({ type: "user/getInfo" });
+  }, []);
 
   return (
     <div id="micro-layout" className={styles["layout"]}>

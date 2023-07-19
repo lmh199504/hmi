@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, message } from "antd";
 import styles from "./index.less";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import Refueling from "@/assets/imgs/refueling.png";
+import { reqVehicleRefuelStatus } from "@/services/api/check";
+import { CarStatus } from "@/enums/refuel";
+import { getCar } from "@/utils/setCar";
 
 interface Props {
   show: boolean;
   setShow: (flag: boolean) => void;
 }
 const RefuelDialog: React.FC<Props> = (props) => {
+  const [loading, setLoading] = useState(false);
   const handleCancel = () => {
-    console.log("handleCancel");
-    message.warn("当前状态不可取消，请在移动短完成加油申请。");
-    props.setShow(false);
+    if (loading) {
+      return;
+    }
+    reqVehicleRefuelStatus({
+      assetName: getCar(),
+    })
+      .then((res) => {
+        if (res?.data?.statusCode == CarStatus.IN_REFUEL) {
+          message.warn("当前状态不可取消，请在移动短完成加油申请。");
+        } else {
+          props.setShow(false);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
   return (
     <Modal

@@ -1,14 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Button } from "antd";
 import styles from "../../index.less";
 import SvgIcon from "@/components/SvgIcon";
 import RefuelDialog from "../RefuelDialog";
+import { reqVehicleRefuelStatus, reqVehicleRefuel } from "@/services/api/check";
+import { getCar } from "@/utils/setCar";
+import { connect } from "umi";
+import RootModelState from "@/types/rootModelState";
+import { CarStatus } from "@/enums/refuel";
 
-const RefuelCard: React.FC = () => {
+interface Props {
+  dddeptId?: string;
+  dduserId?: string;
+}
+
+const RefuelCard: React.FC<Props> = (props) => {
   const [showRefuel, setShowRefuel] = useState(false);
   const handleRefuel = () => {
+    reqVehicleRefuel({
+      assetName: getCar(),
+      dddeptId: props.dddeptId as string,
+      dduserId: props.dduserId as string,
+    });
     setShowRefuel(true);
   };
+  // 获取加油状态
+  const fetchState = () => {
+    reqVehicleRefuelStatus({
+      assetName: getCar(),
+    }).then((res) => {
+      // console.log(res);
+      if (res?.data?.statusCode == CarStatus.IN_REFUEL) {
+        setShowRefuel(true);
+      }
+    });
+  };
+  useEffect(() => {
+    fetchState();
+  }, []);
   return (
     <>
       <Col span={9}>
@@ -31,4 +60,7 @@ const RefuelCard: React.FC = () => {
   );
 };
 
-export default RefuelCard;
+export default connect((state: RootModelState) => ({
+  dddeptId: state.user.userInfo?.dddeptId,
+  dduserId: state.user.userInfo?.dduserId,
+}))(RefuelCard);

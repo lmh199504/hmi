@@ -32,6 +32,9 @@
     .apply_btn {
       position: absolute;
       bottom: 60px;
+      &:active {
+        opacity: 0.8;
+      }
       :global{
         .ant-btn {
           background: #3D3F4C;
@@ -127,5 +130,9 @@
     line-height: 60px;
     color: @text-color-secondary;
     font-size: 24px;
+  }
+  .repair_option_item_active {
+    background-color: #1E75F9;
+    color: #fff;
   }
 }

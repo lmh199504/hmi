@@ -216,3 +216,16 @@ export interface SaveSpotCheckParams {
    */
   waterTankLevel?: number;
 }
+
+
+export interface RemindParams {
+  assetName: string;
+}
+export interface SaveLoginParams {
+  deviceCode: string;
+}
+// 维修保养提醒返回
+export interface RemindResponse {
+  maintenance: boolean;
+  repair: boolean;
+}
