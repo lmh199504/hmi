@@ -8,7 +8,7 @@ import CarList from "./components/CarList";
 import { Layout, SystemState, useStore } from "umi";
 
 const Home: React.FC = () => {
-  const store = useStore<{system: SystemState}>();
+  const store = useStore<{ system: SystemState }>();
   const [layout, setLayout] = useState(store.getState().system.moveLayout);
   store.subscribe(() => {
     setLayout(store.getState().system.moveLayout);

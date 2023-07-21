@@ -7,7 +7,12 @@ const BoxList: React.FC = () => {
   return (
     <div>
       {Array.from({ length: 100 }).map((item, index) => (
-        <BoxItem key={index} id={index} selectId={selectId} onSelect={(id) => setSelectId(id)} />
+        <BoxItem
+          key={index}
+          id={index}
+          selectId={selectId}
+          onSelect={(id) => setSelectId(id)}
+        />
       ))}
     </div>
   );

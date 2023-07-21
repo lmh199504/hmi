@@ -57,5 +57,5 @@ export const reqExchangeTenant = (params: ExchangeParams) => {
 
 // 更新登录状态
 export const reqUpdateVehicleStatus = (params: UpdateVehicleStatus) => {
-  return https.request("/cds-zk/him/updateVehicleStatus", Method.POST, params)
-}
+  return https.request("/cds-zk/him/updateVehicleStatus", Method.POST, params);
+};

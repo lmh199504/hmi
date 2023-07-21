@@ -65,7 +65,9 @@ const BoxItem: React.FC<Props> = (props) => {
               </div>
             </Form>
             <Form layout="vertical">
-              <Form.Item label={<span className={styles.label_span}>确认</span>}>
+              <Form.Item
+                label={<span className={styles.label_span}>确认</span>}
+              >
                 <Button type="primary">确认</Button>
               </Form.Item>
             </Form>

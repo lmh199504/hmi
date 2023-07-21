@@ -80,7 +80,7 @@ export const VehicleStatusOptions = [
   {
     id: CarStatusId.IN_REPAIR,
     code: CarStatus.IN_REPAIR,
-    name: CarStatusName.IN_REPAIR
+    name: CarStatusName.IN_REPAIR,
   },
   {
     id: CarStatusId.IN_MAINTENANCE,
@@ -102,5 +102,5 @@ export const VehicleStatusOptions = [
 export const AT_WORK = {
   vehicleStatusId: CarStatusId.AT_WORK,
   vehicleStatusCode: CarStatus.AT_WORK,
-  vehicleStatus: CarStatusName.AT_WORK
-}
+  vehicleStatus: CarStatusName.AT_WORK,
+};

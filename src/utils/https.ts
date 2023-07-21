@@ -29,7 +29,8 @@ class Https {
       Https.manager.httpClient.interceptors.response.use(
         function (response) {
           const code = response.data.code;
-          const errorMsg = response.data.error || response.data.msg || "网络错误，请稍后再试~";
+          const errorMsg =
+            response.data.error || response.data.msg || "网络错误，请稍后再试~";
           // 文件
           if (typeof response.data == "string") {
             return response;

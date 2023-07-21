@@ -9,11 +9,11 @@ export interface AssettParams {
    */
   pageSize?: number;
 }
- 
+
 export interface AssetMasterDTOModel {
   assetName?: string;
   enable: number;
-} 
+}
 /**
  * PageableResponseModelAssetMasterDTO
  */

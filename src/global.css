@@ -32,11 +32,10 @@ body {
 .ant-message {
   font-size: 24px;
 }
-.ant-message-warning .anticon{
+.ant-message-warning .anticon {
   font-size: 24px;
 }
-.ant-modal
-.ant-modal-confirm-body .ant-modal-confirm-title {
+.ant-modal .ant-modal-confirm-body .ant-modal-confirm-title {
   font-size: 28px;
 }
 

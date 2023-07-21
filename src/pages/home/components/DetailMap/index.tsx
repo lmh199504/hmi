@@ -1,4 +1,4 @@
-import React, { useMemo,useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./index.less";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
@@ -14,9 +14,9 @@ interface Props {
 
 const DetailMap: React.FC<Props> = (props) => {
   const store = useStore();
-  const [layout, setLayout]= useState(store.getState().system.homeLayout)
+  const [layout, setLayout] = useState(store.getState().system.homeLayout);
   store.subscribe(() => {
-    setLayout(store.getState().system.homeLayout)
+    setLayout(store.getState().system.homeLayout);
   });
 
   const className = useMemo(() => {

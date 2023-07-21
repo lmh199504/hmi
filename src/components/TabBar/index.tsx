@@ -15,7 +15,7 @@ const TabBar: React.FC = () => {
   const location = useLocation();
   const handleRefresh = () => {
     // window.location.reload();
-    mitt.emit(EVENTKEY.REFRESH)
+    mitt.emit(EVENTKEY.REFRESH);
   };
 
   const handleLogout = () => {

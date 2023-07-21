@@ -18,23 +18,23 @@ const MaintenanceCard: React.FC<Props> = (props) => {
       return undefined;
     }
   }, [props.maintenance]);
-// 确认验收
-const handleConfirm = () => {
-  if (maintenanceInfo) {
-    setLoading(true)
-    reqConfirmAcceptance({
-      id: maintenanceInfo?.id,
-      acceptType: "maintenance",
-      workOrderNum: maintenanceInfo.workOrderNum
-    })
-    .then(() => {
-      setLoading(false)
-    })
-    .catch(() => {
-      setLoading(false)
-    })
-  }
-};
+  // 确认验收
+  const handleConfirm = () => {
+    if (maintenanceInfo) {
+      setLoading(true);
+      reqConfirmAcceptance({
+        id: maintenanceInfo?.id,
+        acceptType: "maintenance",
+        workOrderNum: maintenanceInfo.workOrderNum,
+      })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
+    }
+  };
   return (
     <Col span={5}>
       <div className={`${styles.maintenance_card} ${styles.card}`}>
@@ -63,7 +63,9 @@ const handleConfirm = () => {
               请在完成保养后，查验保养结果，完成验收后车辆自动恢复为作业中。
             </div>
             <div className={styles.apply_btn}>
-              <Button onClick={handleConfirm} loading={loading}>确认验收</Button>
+              <Button onClick={handleConfirm} loading={loading}>
+                确认验收
+              </Button>
             </div>
           </div>
         )}

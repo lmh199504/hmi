@@ -25,14 +25,16 @@ export const reqVehicleStatus = (params: AseetName) => {
 };
 // 获取维修保养明细记录
 export const reqCheckData = (params: AseetName) => {
-  return https.request<ResponseMmt<CheckAcceptDataModel>>("/cds-zk/him/getCheckAcceptData", Method.GET, params);
+  return https.request<ResponseMmt<CheckAcceptDataModel>>(
+    "/cds-zk/him/getCheckAcceptData",
+    Method.GET,
+    params
+  );
 };
 // 维修申请
 export const reqApplyRepair = (params: VehicleRepairRequest) => {
   return https.request("/cds-zk/him/addVehicleRepairByPC", Method.POST, params);
 };
-
-
 
 // 获取车辆加油状态
 export const reqVehicleRefuelStatus = (params: AseetName) => {
@@ -50,5 +52,5 @@ export const reqVehicleRefuel = (params: VehicleRefuelParams) => {
 
 // 确认验收
 export const reqConfirmAcceptance = (params: ConfirmAcceptance) => {
-  return https.request("/cds-zk/him/confirmAcceptance", Method.POST, params)
-}
+  return https.request("/cds-zk/him/confirmAcceptance", Method.POST, params);
+};

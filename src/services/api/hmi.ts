@@ -29,7 +29,7 @@ export const reqSpotCheckData = () => {
   );
 };
 // 获取当日是否检点过
-export const reqSpotCheckStatus = (params: {assetName: string}) => {
+export const reqSpotCheckStatus = (params: { assetName: string }) => {
   return https.request<BaseResponse<CheckInspectionModel>>(
     "/cds-zk/him/checkInspectionStatus",
     Method.POST,
@@ -42,10 +42,18 @@ export const reqSaveSpotCheck = (params: SaveSpotCheckParams) => {
 };
 // 车牌号获取维修保养提醒
 export const reqRemind = (params: RemindParams) => {
-  return https.request<ResponseMmt<RemindResponse>>("/cds-zk/him/getStatus", Method.GET, params);
+  return https.request<ResponseMmt<RemindResponse>>(
+    "/cds-zk/him/getStatus",
+    Method.GET,
+    params
+  );
 };
 
 // 车载登录保存
 export const reqSaveLogin = (params: SaveLoginParams) => {
-  return https.request("/cds-zk/work-region/save-hmi-login-user", Method.POST, params)
-}
+  return https.request(
+    "/cds-zk/work-region/save-hmi-login-user",
+    Method.POST,
+    params
+  );
+};

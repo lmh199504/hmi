@@ -14,7 +14,7 @@ interface Props {
   dduserId?: string;
 }
 
-const RefuelCard: React.FC<Props> = (props) => {  
+const RefuelCard: React.FC<Props> = (props) => {
   // 加油中弹窗
   const [showRefuel, setShowRefuel] = useState(false);
   // 申请按钮加载中
@@ -26,13 +26,13 @@ const RefuelCard: React.FC<Props> = (props) => {
       dddeptId: props.dddeptId as string,
       dduserId: props.dduserId as string,
     })
-    .then(() => {
-      setShowRefuel(true);
-      setLoading(false);
-    })
-    .catch(() => {
-      setLoading(false);
-    })
+      .then(() => {
+        setShowRefuel(true);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
   // 获取加油状态
   const fetchState = () => {
@@ -59,7 +59,9 @@ const RefuelCard: React.FC<Props> = (props) => {
             起申请后，车辆状态将变更为加油中，请在移动端完成加油审批，车辆自动恢复为作业中。
           </div>
           <div className={styles.apply_btn}>
-            <Button onClick={handleRefuel} loading={loading}>加油申请</Button>
+            <Button onClick={handleRefuel} loading={loading}>
+              加油申请
+            </Button>
           </div>
         </div>
       </Col>

@@ -83,18 +83,18 @@ const RepairCard: React.FC<Props> = (props) => {
   // 确认验收
   const handleConfirm = () => {
     if (repairInfo) {
-      setLoading(true)
+      setLoading(true);
       reqConfirmAcceptance({
         id: repairInfo?.id,
         acceptType: "repair",
-        workOrderNum: repairInfo.workOrderNum
+        workOrderNum: repairInfo.workOrderNum,
       })
-      .then(() => {
-        setLoading(false)
-      })
-      .catch(() => {
-        setLoading(false)
-      })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     }
   };
   return (
@@ -169,7 +169,9 @@ const RepairCard: React.FC<Props> = (props) => {
               </div>
             </div>
             <div className={styles.apply_btn}>
-              <Button onClick={handleConfirm} loading={loading}>确认验收</Button>
+              <Button onClick={handleConfirm} loading={loading}>
+                确认验收
+              </Button>
             </div>
           </div>
         )}
