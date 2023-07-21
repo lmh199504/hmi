@@ -37,7 +37,7 @@ const userModel: UserModel = {
   effects: {
     *getInfo(_, { call, put }) {
       const { data } = yield call(reqUserInfo);
-      yield put({ type: "setUserInfo", payload: data.data });
+      yield put({ type: "setUserInfo", payload: data });
     },
   },
 };

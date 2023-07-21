@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.less";
 import { Form, Input, Select, message } from "antd";
 import { ArrowRightOutlined, LoadingOutlined } from "@ant-design/icons";
-import { userLogin } from "@/services/api/user";
+import { userLogin, reqUpdateVehicleStatus } from "@/services/api/user";
 import { reqAsset } from "@/services/api/hmi";
 import { AssetMasterDTO } from "@/services/types/hmi";
-import { setToken } from "@/utils/auth";
+import { removeToken, setToken } from "@/utils/auth";
 import { history } from "umi";
-import { setCar } from "@/utils/setCar";
+import { removeCar, setCar } from "@/utils/setCar";
 import { reqSaveLogin } from "@/services/api/hmi";
+import { AT_WORK } from "@/enums/CarStatus";
 
+let carItem: AssetMasterDTO | undefined = undefined;
 const Login: React.FC = () => {
   const [carList, setCarList] = useState<AssetMasterDTO[]>([]);
   const [form] = Form.useForm();
@@ -36,7 +38,17 @@ const Login: React.FC = () => {
   const handleSearch = (val: string) => {
     fetchCar(val);
   };
-
+  // 车号改变
+  const handleCarChange = (
+    val: string,
+    option: AssetMasterDTO | AssetMasterDTO[]
+  ) => {
+    if (Array.isArray(option)) {
+      carItem = option[0];
+    } else {
+      carItem = option;
+    }
+  };
   useEffect(() => {
     fetchCar();
   }, []);
@@ -65,12 +77,18 @@ const Login: React.FC = () => {
         ...data,
       });
       setToken(res?.data.token || "");
-      setCar(data.loginLocation);
+      setCar(carItem as AssetMasterDTO);
       await reqSaveLogin({ deviceCode: data.loginLocation });
+      await reqUpdateVehicleStatus({
+        ...AT_WORK,
+        assetName: data.loginLocation,
+      });
       history.push("/");
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      removeToken();
+      removeCar();
     }
     // console.log(res);
   };
@@ -92,6 +110,7 @@ const Login: React.FC = () => {
               allowClear
               loading={carLoading}
               getPopupContainer={(triggerNode) => triggerNode.parentNode}
+              onChange={handleCarChange}
             />
           </Form.Item>
           <Form.Item name="userCode">
@@ -99,7 +118,7 @@ const Login: React.FC = () => {
               allowClear
               autoComplete="off"
               placeholder="请输入用户名"
-              maxLength={10}
+              maxLength={16}
             />
           </Form.Item>
           <Form.Item name="password">
@@ -108,6 +127,7 @@ const Login: React.FC = () => {
               autoComplete="off"
               placeholder="请输入密码"
               type="password"
+              maxLength={16}
             />
           </Form.Item>
         </Form>

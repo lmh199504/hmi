@@ -1,4 +1,4 @@
-import { CarStatus } from "@/enums/refuel";
+import { CarStatus } from "@/enums/CarStatus";
 
 export interface AseetName {
   assetName: string;
@@ -115,7 +115,6 @@ export interface VehicleTroubleModel {
    */
   faultDescription: string;
 }
-
 
 /**
  * VehicleRepairRequest
@@ -312,10 +311,10 @@ export interface VehicleRepairRequest {
 }
 
 /**
-* 明细材料DTO
-*
-* DetailMaterialDTO
-*/
+ * 明细材料DTO
+ *
+ * DetailMaterialDTO
+ */
 export interface DetailMaterialDTO {
   /**
    * 申请数量
@@ -372,10 +371,10 @@ export interface DetailMaterialDTO {
 }
 
 /**
-* 维修明细DTO
-*
-* RepairDetailDTO
-*/
+ * 维修明细DTO
+ *
+ * RepairDetailDTO
+ */
 export interface RepairDetailDTO {
   /**
    * id
@@ -417,4 +416,73 @@ export interface RepairDetailDTO {
    * 工时
    */
   workingHours?: number;
+}
+
+/**
+ * 数据包
+ *
+ * CheckAcceptDataModel
+ *
+ * 获取维修、保养明细记录返回值
+ */
+export interface CheckAcceptDataModel {
+  /**
+   * 保养申请明细
+   */
+  maintenance: MaintenanceDTO[];
+  /**
+   * 维修申请明细
+   */
+  repair: RepairDTO[];
+}
+
+/**
+ * 保养明细申请
+ *
+ * maintenanceDTO
+ */
+export interface MaintenanceDTO {
+  approvalStatusCode: string;
+  approvalStatusName: string;
+  estimateTime?: string;
+  id: string;
+  workHours?: string;
+  workOrderNum: string;
+}
+
+/**
+ * 维修明细申请
+ *
+ * RepairDTO
+ */
+export interface RepairDTO {
+  approvalStatusCode: string;
+  approvalStatusName: string;
+  estimateTime?: string;
+  faultDescription: string;
+  id: string;
+  workOrderNum: string;
+}
+
+export interface ConfirmAcceptance {
+  /**
+   * 验收类型(maintenance=保养，repair=维修)
+   */
+  acceptType: string;
+  /**
+   * 维修/保养申请记录id
+   */
+  id: string;
+  /**
+   * 用户ID
+   */
+  userId?: number;
+  /**
+   * 用户名
+   */
+  userName?: string;
+  /**
+   * 工单编号
+   */
+  workOrderNum: string;
 }

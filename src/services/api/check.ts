@@ -2,6 +2,8 @@ import https from "@/utils/https";
 import { Method } from "axios-mapper";
 import {
   AseetName,
+  CheckAcceptDataModel,
+  ConfirmAcceptance,
   VehicleRefuelParams,
   VehicleRefuelStatusRe,
   VehicleRepairRequest,
@@ -23,15 +25,14 @@ export const reqVehicleStatus = (params: AseetName) => {
 };
 // 获取维修保养明细记录
 export const reqCheckData = (params: AseetName) => {
-  return https.request("/cds-zk/him/getCheckAcceptData", Method.GET, params);
+  return https.request<ResponseMmt<CheckAcceptDataModel>>("/cds-zk/him/getCheckAcceptData", Method.GET, params);
 };
 // 维修申请
 export const reqApplyRepair = (params: VehicleRepairRequest) => {
   return https.request("/cds-zk/him/addVehicleRepairByPC", Method.POST, params);
 };
 
-// 确认验收
-// export const req
+
 
 // 获取车辆加油状态
 export const reqVehicleRefuelStatus = (params: AseetName) => {
@@ -46,3 +47,8 @@ export const reqVehicleRefuelStatus = (params: AseetName) => {
 export const reqVehicleRefuel = (params: VehicleRefuelParams) => {
   return https.request("/cds-zk/him/addVehicleRefuel", Method.POST, params);
 };
+
+// 确认验收
+export const reqConfirmAcceptance = (params: ConfirmAcceptance) => {
+  return https.request("/cds-zk/him/confirmAcceptance", Method.POST, params)
+}

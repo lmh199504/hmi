@@ -7,6 +7,7 @@ import type {
   TenantParams,
   TenantDTO,
   ExchangeParams,
+  UpdateVehicleStatus,
 } from "@/services/types/user";
 
 // 钉钉登录
@@ -53,3 +54,8 @@ export const reqTenantList = (params: TenantParams) => {
 export const reqExchangeTenant = (params: ExchangeParams) => {
   return https.request("/cds-user/auth/exchange-tenant", Method.POST, params);
 };
+
+// 更新登录状态
+export const reqUpdateVehicleStatus = (params: UpdateVehicleStatus) => {
+  return https.request("/cds-zk/him/updateVehicleStatus", Method.POST, params)
+}

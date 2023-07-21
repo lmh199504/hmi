@@ -40,7 +40,7 @@ const SpotCheck: React.FC<Props> = (props) => {
       }
       await reqSaveSpotCheck({
         ...formatData,
-        assetName: getCar(),
+        assetName: getCar()?.assetName || "",
         dddeptId: props.dddeptId || "",
         dduserId: props.dduserId || "",
       });

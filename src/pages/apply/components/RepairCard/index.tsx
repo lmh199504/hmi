@@ -1,18 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Col, Button, Row, Timeline, message } from "antd";
+import React, { useEffect, useState, useMemo } from "react";
+import { Col, Button, Row, message } from "antd";
 import styles from "../../index.less";
 import SvgIcon from "@/components/SvgIcon";
-import { reqApplyRepair, reqFaultDesc } from "@/services/api/check";
+import {
+  reqApplyRepair,
+  reqFaultDesc,
+  reqConfirmAcceptance,
+} from "@/services/api/check";
 import { getCar } from "@/utils/setCar";
-import type { VehicleTroubleModel } from "@/services/types/check";
+import type { RepairDTO, VehicleTroubleModel } from "@/services/types/check";
+import { connect } from "umi";
+import RootModelState from "@/types/rootModelState";
 
-const RepairCard: React.FC = () => {
+interface Props {
+  repair: RepairDTO[];
+  dddeptId?: string;
+  dduserId?: string;
+}
+
+const RepairCard: React.FC<Props> = (props) => {
   const [descList, setDescList] = useState<VehicleTroubleModel[]>([]);
   const [selectList, setSelectList] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const fetchList = () => {
     reqFaultDesc({
-      assetName: getCar(),
+      assetName: getCar()?.assetName || "",
     }).then((res) => {
       setDescList(res?.data || []);
     });
@@ -34,15 +46,16 @@ const RepairCard: React.FC = () => {
   // 提交维修申请
   const handleRepair = () => {
     if (selectList.length == 0) {
-      message.warn("请先选择故障类型");
+      message.warn("请先选择维修类型");
       return;
     }
+    setLoading(true);
     reqApplyRepair({
-      assetName: "",
-      assetType: "",
-      assetTypeId: "",
-      dddeptId: "",
-      dduserId: "",
+      assetName: getCar()?.assetName || "",
+      assetType: getCar()?.assetType || "",
+      assetTypeId: getCar()?.assetTypeId || "",
+      dddeptId: props.dddeptId as string,
+      dduserId: props.dduserId as string,
       faultDescription: selectList.join("|"),
     })
       .then(() => {
@@ -52,6 +65,38 @@ const RepairCard: React.FC = () => {
         setLoading(false);
       });
   };
+  const repairInfo = useMemo(() => {
+    if (props.repair?.length) {
+      return props.repair[0];
+    } else {
+      return undefined;
+    }
+  }, [props.repair]);
+
+  const tagList = useMemo(() => {
+    if (repairInfo) {
+      return repairInfo.faultDescription?.split("|") || [];
+    } else {
+      return [];
+    }
+  }, [repairInfo]);
+  // 确认验收
+  const handleConfirm = () => {
+    if (repairInfo) {
+      setLoading(true)
+      reqConfirmAcceptance({
+        id: repairInfo?.id,
+        acceptType: "repair",
+        workOrderNum: repairInfo.workOrderNum
+      })
+      .then(() => {
+        setLoading(false)
+      })
+      .catch(() => {
+        setLoading(false)
+      })
+    }
+  };
   return (
     <Col span={10}>
       <div className={`${styles.repair_card} ${styles.card}`}>
@@ -59,86 +104,81 @@ const RepairCard: React.FC = () => {
           <SvgIcon name="repair" />
         </div>
         {/* 初始状态 */}
-        <div>
-          <div className={styles.title}>维修申请</div>
-          <div className={styles.repair_option}>
-            <Row gutter={[16, 16]}>
-              {descList.map((item) => (
-                <Col key={item.faultDescription} span={6}>
-                  <div
-                    className={`${styles.repair_option_item} ${
-                      selectList.includes(item.faultDescription)
-                        ? styles.repair_option_item_active
-                        : ""
-                    }`}
-                    onClick={() => handleSelectRepair(item.faultDescription)}
-                  >
-                    {item.faultDescription}
+        {!repairInfo ? (
+          <div>
+            <div className={styles.title}>维修申请</div>
+            <div className={styles.repair_option}>
+              <Row gutter={[16, 16]}>
+                {descList.map((item) => (
+                  <Col key={item.faultDescription} span={6}>
+                    <div
+                      className={`${styles.repair_option_item} ${
+                        selectList.includes(item.faultDescription)
+                          ? styles.repair_option_item_active
+                          : ""
+                      }`}
+                      onClick={() => handleSelectRepair(item.faultDescription)}
+                    >
+                      {item.faultDescription}
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+            <div className={styles.apply_btn}>
+              <Button onClick={handleRepair} loading={loading}>
+                维修申请
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className={styles.title}>维修申请</div>
+            <div className={styles.repair_ing}>
+              <div className={styles.repair_ing_item}>
+                <div className={styles.repair_ing_item_label}>工单编号：</div>
+                <div className={styles.repair_ing_item_val}>
+                  {repairInfo.workOrderNum}
+                </div>
+              </div>
+              <div className={styles.repair_ing_item}>
+                <div className={styles.repair_ing_item_label}>故障描述：</div>
+                <div className={styles.repair_ing_item_val}>
+                  <div className={styles.falied_wrapper}>
+                    {tagList.map((item) => (
+                      <div className={styles.falied_item} key={item}>
+                        {item}
+                      </div>
+                    ))}
                   </div>
-                </Col>
-              ))}
-            </Row>
-          </div>
-          <div className={styles.apply_btn}>
-            <Button onClick={handleRepair} loading={loading}>
-              维修申请
-            </Button>
-          </div>
-        </div>
-        {/* 申请中 */}
-        <div style={{ display: "none" }}>
-          <div className={styles.title}>维修申请</div>
-          <div className={styles.repair_tip}>
-            <span>请于</span>
-            <span className={styles.tip_time}>2023-01-02 13:00</span>
-            <span>前往维修地点</span>
-          </div>
-          <div className={styles.time_line}>
-            <Timeline>
-              <Timeline.Item color="blue" className={styles.active_time}>
-                <div className={styles.repair_status_title}>
-                  <div className={styles.repair_title}>提交申请</div>
-                  <div className={styles.repair_status}>已通过</div>
                 </div>
-                <div className={styles.repair_time}>2023-01-01 13:21:36</div>
-              </Timeline.Item>
-              <Timeline.Item color="blue" className={styles.active_time}>
-                <div className={styles.repair_status_title}>
-                  <div className={styles.repair_title}>车队长审批</div>
-                  <div className={styles.repair_status}>已通过</div>
+              </div>
+              <div className={styles.repair_ing_item}>
+                <div className={styles.repair_ing_item_label}>
+                  预计维修时间：
                 </div>
-                <div className={styles.repair_time}>2023-01-01 13:21:36</div>
-              </Timeline.Item>
-              <Timeline.Item color="blue" className={styles.active_time}>
-                <div className={styles.repair_status_title}>
-                  <div className={styles.repair_title}>中控审批</div>
-                  <div className={styles.repair_status}>已通过</div>
+                <div className={styles.repair_ing_item_val}>
+                  {repairInfo.estimateTime || "-"}
                 </div>
-                <div className={styles.repair_time}>2023-01-01 13:21:36</div>
-              </Timeline.Item>
-              <Timeline.Item color="blue" className={styles.active_time}>
-                <div className={styles.repair_status_title}>
-                  <div className={styles.repair_title}>机务部</div>
-                  <div className={styles.repair_status}>已通过</div>
+              </div>
+              <div className={styles.repair_ing_item}>
+                <div className={styles.repair_ing_item_label}>工单状态：</div>
+                <div className={styles.repair_ing_item_val}>
+                  {repairInfo.approvalStatusName}
                 </div>
-                <div className={styles.repair_time}>2023-01-01 13:21:36</div>
-              </Timeline.Item>
-            </Timeline>
+              </div>
+            </div>
+            <div className={styles.apply_btn}>
+              <Button onClick={handleConfirm} loading={loading}>确认验收</Button>
+            </div>
           </div>
-        </div>
-        {/* 维修中 */}
-        <div style={{ display: "none" }}>
-          <div className={styles.title}>维修中...</div>
-          <div className={styles.repair_ing}>
-            请在完成修理后，查验维修结果，完成验收后车辆自动恢复为作业中。
-          </div>
-          <div className={styles.apply_btn}>
-            <Button>确认验收</Button>
-          </div>
-        </div>
+        )}
       </div>
     </Col>
   );
 };
 
-export default RepairCard;
+export default connect((state: RootModelState) => ({
+  dddeptId: state.user.userInfo?.dddeptId,
+  dduserId: state.user.userInfo?.dduserId,
+}))(RepairCard);

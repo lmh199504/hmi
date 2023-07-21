@@ -5,11 +5,9 @@ import styles from "./index.less";
 import HomeArea from "./components/HomeArea";
 import mitt from "@/mitt";
 import EVENTKEY from "@/constant/mittEvent";
-import { reqSpotCheckStatus, reqRemind } from "@/services/api/hmi";
+import { reqSpotCheckStatus } from "@/services/api/hmi";
 import { Spin } from "antd";
 import { getCar } from "@/utils/setCar";
-import FixTip from "@/components/FixTip";
-import { RemindResponse } from "@/services/types/hmi";
 
 enum SHOWTYPE {
   CHECK = "CHECK",
@@ -20,26 +18,15 @@ enum SHOWTYPE {
 
 const Home: React.FC = () => {
   const [type, setType] = useState<SHOWTYPE>(SHOWTYPE.LOADING);
-  const [tipData, setTipData] = useState<RemindResponse>({
-    repair: false,
-    maintenance: false,
-  });
+
   const onFinish = () => {
     setType(SHOWTYPE.MAP);
   };
-  // 获取维修保养提醒
-  const fetchRemind = () => {
-    reqRemind({
-      assetName: getCar(),
-    }).then((res) => {
-      console.log(res);
-      setTipData(res?.data || { repair: false, maintenance: false });
-    });
-  };
+
   // 获取点检状态
   const fetchStatus = () => {
     reqSpotCheckStatus({
-      assetName: getCar(),
+      assetName: getCar()?.assetName || "",
     })
       .then((res) => {
         if (res?.data?.status == "false") {
@@ -53,7 +40,6 @@ const Home: React.FC = () => {
       });
   };
   useEffect(() => {
-    fetchRemind();
     fetchStatus();
   }, []);
 
@@ -91,7 +77,6 @@ const Home: React.FC = () => {
           <Spin size="large" />
         </div>
       )}
-      {(tipData.repair || tipData.maintenance) && <FixTip tipData={tipData} />}
     </>
   );
 };

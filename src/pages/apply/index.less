@@ -113,6 +113,31 @@
     .repair_ing {
       color: @text-color-secondary;
       font-size: 24px;
+      .repair_ing_item {
+        display: flex;
+        margin-bottom: 24px;
+        .repair_ing_item_label {
+          color: @text-color-secondary; 
+        }
+        .repair_ing_item_val {
+          color: @text-color; 
+          font-family: Arial;
+        }
+      }
+      .falied_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+       
+      }
+      .falied_item {
+        height: 60px;
+        padding: 0 15px;
+        background: #1E75F9;
+        margin-right: 16px;
+        color: #fff;
+        border-radius: 4px;
+        line-height: 60px;
+      }
     }
   }
   .maintenance_card {

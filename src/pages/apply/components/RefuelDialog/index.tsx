@@ -4,7 +4,7 @@ import styles from "./index.less";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import Refueling from "@/assets/imgs/refueling.png";
 import { reqVehicleRefuelStatus } from "@/services/api/check";
-import { CarStatus } from "@/enums/refuel";
+import { CarStatus } from "@/enums/CarStatus";
 import { getCar } from "@/utils/setCar";
 
 interface Props {
@@ -17,8 +17,9 @@ const RefuelDialog: React.FC<Props> = (props) => {
     if (loading) {
       return;
     }
+    setLoading(true);
     reqVehicleRefuelStatus({
-      assetName: getCar(),
+      assetName: getCar()?.assetName || "",
     })
       .then((res) => {
         if (res?.data?.statusCode == CarStatus.IN_REFUEL) {

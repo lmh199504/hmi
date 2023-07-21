@@ -3,27 +3,17 @@ export interface AssettParams {
    * 当前页，从1开始记录
    */
   current?: number;
-  exampleModel?: AssetMasterDTO;
+  exampleModel?: AssetMasterDTOModel;
   /**
    * 每页数量
    */
   pageSize?: number;
 }
-
-/**
- * AssetMasterDTO
- */
-export interface AssetMasterDTO {
-  /**
-   * 资产名称(车号)
-   */
+ 
+export interface AssetMasterDTOModel {
   assetName?: string;
-  /**
-   * 数据状态 是否启用: 0：否，1：是
-   */
-  enable?: number;
-}
-
+  enable: number;
+} 
 /**
  * PageableResponseModelAssetMasterDTO
  */
@@ -58,14 +48,44 @@ export interface PageableResponseModelAssetMasterDTO {
  * AssetMasterDTO
  */
 export interface AssetMasterDTO {
-  /**
-   * 资产名称(车号)
-   */
-  assetName?: string;
-  /**
-   * 数据状态 是否启用: 0：否，1：是
-   */
-  enable?: number;
+  affiliatedCompany: string;
+  affiliatedCompanyId: string;
+  assetClass: string;
+  assetClassId: string;
+  assetModel: string;
+  assetModelId: string;
+  assetName: string;
+  assetNumber: string;
+  assetStatusCode: string;
+  assetStatusId: string;
+  assetStatusName: string;
+  assetType: string;
+  assetTypeId?: string;
+  assetUser?: string;
+  assetUserId?: string;
+  companyNumber?: string;
+  companyNumberId?: string;
+  enable: number;
+  entrustCompany?: string;
+  entrustCompanyId?: string;
+  entryDate?: string;
+  fixedAssetNumber?: string;
+  manufacturer?: string;
+  manufacturerId?: string;
+  originalPrice?: string;
+  produceDate?: string;
+  remark?: string;
+  remarkEn?: string;
+  sapAssetNumber?: string;
+  sapNumber?: string;
+  sapNumberId?: string;
+  storageLocation?: string;
+  usefulLife?: string;
+  usingCompany?: string;
+  usingCompanyId?: string;
+  usingStorageCode?: string;
+  usingStorageId?: string;
+  usingStorageName?: string;
 }
 
 export interface BaseResponse<T = any> {
@@ -216,7 +236,6 @@ export interface SaveSpotCheckParams {
    */
   waterTankLevel?: number;
 }
-
 
 export interface RemindParams {
   assetName: string;

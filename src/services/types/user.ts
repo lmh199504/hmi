@@ -229,3 +229,23 @@ export interface ExchangeParams {
   userId: string | number | undefined;
   tenantId: string | number | undefined;
 }
+
+// /him/
+export interface UpdateVehicleStatus {
+  /**
+   * 资产名称(车号)
+   */
+  assetName: string;
+  /**
+   * 车辆状态NAME
+   */
+  vehicleStatus: string;
+  /**
+   * 车辆状态CODE
+   */
+  vehicleStatusCode: string;
+  /**
+   * 车辆状态ID
+   */
+  vehicleStatusId: string;
+}
